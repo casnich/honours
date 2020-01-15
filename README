@@ -1,1 +1,28 @@
-To be written
+# README
+
+## Docker containers
+
+Building the docker container can be done using (with `~/Desktop/ANUCourses/Honours/honours` as the pwd):
+
+```sh
+docker build -t radware .
+```
+
+Running the container can be done with (again with `~/Desktop/ANUCourses/Honours/honours` as the pwd):
+
+```sh
+docker run -it --rm -v ~/Desktop/ANUCourses/Honours/honours/rw05:/rw05 radware /bin/bash
+```
+
+In the above command:
+
+`-it` makes the container run interactively.
+`--rm` means that the container shuts down after it has been exited.
+`-v local:cont` mounts the `local` directory into the path `cont` within the container.
+`/bin/bash` is the command that the container executes in the shell - in this case it is just giving us a bash shell.
+
+`touch f` will create an empty file (that is not of any type) called `f`.
+
+Files that are created using touch within the container directory will persist into the local directory.
+
+To exit the container, use `exit`.
