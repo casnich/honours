@@ -20,9 +20,10 @@ RUN make all && make install
 # Copy our custom bashrc_radware file into the container directory
 COPY /bashrc_radware /root/bashrc_radware
 
-# 
+# Add a line to run the commands contained within `bashrc_radware` as per step 6) of Linux/Unix README
 RUN echo 'source ~/bashrc_radware' >> ~/.bashrc
 
+# Starts a bash terminal (as opposed to one in some other shell)
 ENTRYPOINT /bin/bash
 
 
