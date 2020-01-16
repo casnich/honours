@@ -15,9 +15,15 @@ COPY /Makefile_radware /rw05/src/Makefile
 WORKDIR /rw05/src
 
 # Install radware
-RUN make all
-RUN make install
-RUN make very-clean
+RUN make all && make install
+
+# Copy our custom bashrc_radware file into the container directory
+COPY /bashrc_radware /root/bashrc_radware
+
+# 
+RUN echo 'source ~/bashrc_radware' >> ~/.bashrc
+
+ENTRYPOINT /bin/bash
 
 
 
