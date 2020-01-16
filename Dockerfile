@@ -11,6 +11,9 @@ RUN wget ftp://radware.phy.ornl.gov/pub/radware/unix/current.tgz && tar xvzf cur
 # Copy our Makefile (`Makefile_radware`) into `rw05/src`
 COPY /Makefile_radware /rw05/src/Makefile
 
+# Copy in data for analysis
+COPY /data /root/data
+
 # Change working directory
 WORKDIR /rw05/src
 

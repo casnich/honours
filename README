@@ -21,6 +21,20 @@ In the above command:
 `-v local:cont` mounts the `local` directory into the path `cont` within the container.
 `/bin/bash` is the command that the container executes in the shell - in this case it is just giving us a bash shell.
 
+To run the container including display forwarding, first run this command to store your IP address:
+```sh
+ export IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') 
+```
+
+And then this command to run the container:
+
+```sh
+docker run -it --rm -e DISPLAY=$IP:0 -e XAUTHORITY=/.Xauthority --net host -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/.Xauthority:/.Xauthority -v ~/Desktop/ANUCourses/Honours/rw05:/rw05 radware /bin/bash
+```
+
+A graphics window will appear when `gf3` is run (or `gf3 file.ext` to open a specific file)
+
+
 `touch f` will create an empty file (that is not of any type) called `f`.
 
 Files that are created using touch within the container directory will persist into the local directory.
@@ -48,4 +62,4 @@ Tasks:
     1. Copy our Makefile (`Makefile_radware`, which uses the root user rather than graddford) into `rw05/src` (done)
     1. `cd /rw05/src;make all;make install` (done)
     1. Make our own radware.bashrc (which has `export PATH=~/rw_current/bin/:${PATH}` as last line) and copy that into the Docker image, then source it (e.g. `source ~/.bashrc_radware`) (done)
-    1. Setup display forwarding
+    1. Setup display forwarding (done)
