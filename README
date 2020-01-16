@@ -28,6 +28,13 @@ Files that are created using touch within the container directory will persist i
 To exit the container, use `exit`.
 
 
+## Updating git repository
+1. Check `git status`
+2. Use `git add .` to add all files or `git add <file>` for specific files
+	1. Note that any files in the .gitignore file will be ignored during git commits 	and pushes
+3. `git commit`
+
+
 
 ### Notes to sort out later
 
@@ -35,12 +42,12 @@ We're using
 
 Starting the container then doing `cd /rw05/src;make all;make install` will work if you first use the `Makefile` in this repository rather than the one shipped with radware by default. I think we are using `rw05.3.tgz` at the moment (which you could download with `wget ftp://radware.phy.ornl.gov/pub/radware/unix/rw05.3.tgz`.
 
-Tomorrow:
+Tasks:
 
 1. Setup the Dockerfile so that it:
     1. Installs all required libraries (done)
-    1. Download radware from the ftp server using wget
-    1. Copy our Makefile (which uses the root user rather than graddford) into `rw05/src`
-    1. `cd /rw05/src;make all;make install`
+    1. Download radware from the ftp server using wget (done)
+    1. Copy our Makefile (`Makefile_radware`, which uses the root user rather than graddford) into `rw05/src` (done)
+    1. `cd /rw05/src;make all;make install` (done)
     1. Make our own radware.bashrc (which has `export PATH=~/rw_current/bin/:${PATH}` as last line) and copy that into the Docker image, then source it (e.g. `source ~/.bashrc_radware`)
     1. Setup display forwarding
