@@ -2,7 +2,7 @@
 
 ## Docker containers
 
-Building the docker container can be done using (with `~/Desktop/ANUCourses/Honours/honours` as the pwd):
+Once Docker and Kubernetes are both running, building the docker container can be done using (with `~/Desktop/ANUCourses/Honours/honours` as the pwd):
 
 ```sh
 docker build -t radware .
@@ -21,12 +21,14 @@ In the above command:
 `-v local:cont` mounts the `local` directory into the path `cont` within the container.
 `/bin/bash` is the command that the container executes in the shell - in this case it is just giving us a bash shell.
 
-To run the container including display forwarding, first run this command to store your IP address:
+## With display forwarding 
+
+To run the container including display forwarding, after building the container, first run this command to store your IP address:
 ```sh
  export IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') 
 ```
 
-And then this command to run the container:
+Making sure that X11 is running (by opening XQuartz), run this command to run the container:
 
 ```sh
 docker run -it --rm -e DISPLAY=$IP:0 -e XAUTHORITY=/.Xauthority --net host -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/.Xauthority:/.Xauthority -v ~/Desktop/ANUCourses/Honours/rw05:/rw05 radware /bin/bash
@@ -50,7 +52,7 @@ To exit the container, use `exit`.
 
 
 
-### Notes to sort out later
+### Stuff that has been done to get radware working
 
 Starting the container then doing `cd /rw05/src;make all;make install` will work if you first use the `Makefile` in this repository rather than the one shipped with radware by default. I think we are using `rw05.3.tgz` at the moment (which you could download with `wget ftp://radware.phy.ornl.gov/pub/radware/unix/rw05.3.tgz`.
 
