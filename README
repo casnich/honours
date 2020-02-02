@@ -28,7 +28,17 @@ To run the container including display forwarding, after building the container,
  export IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}') 
 ```
 
-Making sure that X11 is running (by opening XQuartz), run this command to run the container:
+Make sure that X11 is running, by opening XQuartz or by running
+```sh
+open -a XQuartz
+``` 
+
+The following command also needs to be run:
+
+```sh
+xhost + $IP
+```
+Then, run this command to run the container:
 
 ```sh
 docker run -it --rm -e DISPLAY=$IP:0 -e XAUTHORITY=/.Xauthority --net host -v /tmp/.X11-unix:/tmp/.X11-unix -v ~/.Xauthority:/.Xauthority -v ~/Desktop/ANUCourses/Honours/rw05:/rw05 radware /bin/bash
